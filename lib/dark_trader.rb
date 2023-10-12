@@ -10,8 +10,13 @@ bitcoin_info = [bitcoin_name = page.xpath('//*[@id="__next"]/div[2]/div[2]/div/d
 puts bitcoin_name.text + " = " + bitcoin_price.text
 
 #---------------------Create array with 10 names and array with 10 values--------------------------------#
+def get_10_names_and_prices
 
-    page.xpath('//*[@id="__next"]/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/div/table/tbody/tr[position() <= 10]').each do |crypto_row| 
+    page_2 = Nokogiri::HTML(RestClient.get("https://coinmarketcap.com/all/views/all/"))
+
+    crypto_data = Array.new #ça crée une array
+
+    page_2.xpath('//*[@id="__next"]/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/div/table/tbody/tr[position() <= 10]').each do |crypto_row| 
     #on crée 10 rangées à partir de la table selectionnée dans le site qu'on nomme crypto_row
     crypto_name = crypto_row.at_xpath('.//td[2]/div/a[2]').text.strip
     #1. on crée une variable avec un nom cohérent pour s'y réfere plus tard (crypto_name) 
@@ -23,25 +28,9 @@ puts bitcoin_name.text + " = " + bitcoin_price.text
     #7. On ajoute .text pour ne choisir que le texte et .strip pour un formatage propre, sans espaces inutiles, etc...
     crypto_price = crypto_row.at_xpath('.//td[5]/div/a/span').text.strip
     #même démarche pour le prix
-    crypto_data = Array.new #ça crée une array
-    crypto_data << { name: crypto_name, price: crypto_price }
-    puts crypto_data
+    crypto_data << { name: crypto_name, price: crypto_price } #pour envoyer les infos vers l'array crypto_data qui va permettre plus tard l'affichage 
     end
+    return crypto_data
+end
 
-
-#crypto_data << { name: crypto_name, price: crypto_price }
-#crypto_name = crypto_row.at_xpath('.//td[2]/div/a[2]').text.strip
-#crypto_price_element = crypto_row.at_xpath('.//td[5]/div/a/span')
-#crypto_price = crypto_price_element.text.strip
-
-#crypto_data << { name: crypto_name, price: crypto_price } #pour envoyer les infos vers l'array crypto_data qui va permettre plus tard l'affichage 
-
-
-
-
-#test_is = page.xpath('//td/*')
-
-#test_is.each do |key, value|
-    #puts key.text
-    #puts value.to_s
-#end
+puts get_10_names_and_prices
