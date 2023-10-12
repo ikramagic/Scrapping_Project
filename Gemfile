@@ -1,2 +1,5 @@
 source 'https://rubygems.org/'
 gem 'nokogiri'
+gem 'open-uri'
+gem 'rest-client'
+ruby '3.2.2'
