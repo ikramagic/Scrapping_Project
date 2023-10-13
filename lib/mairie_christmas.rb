@@ -43,8 +43,8 @@ town_urls = Array.new
 
 all_urls.xpath('//td[2]/p/a/@href').map(&:value).each do |every_urls|
 
-    #urls = every_urls.split("\n")
-    #town_urls << urls
+    urls = every_urls.split("\n")
+    town_urls << urls
 end
     return town_urls
 end

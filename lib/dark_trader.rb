@@ -10,6 +10,7 @@ bitcoin_info = [bitcoin_name = page.xpath('//*[@id="__next"]/div[2]/div[2]/div/d
 puts bitcoin_name.text + " = " + bitcoin_price.text
 
 #---------------------Create array with 10 names and array with 10 values--------------------------------#
+
 def get_10_names_and_prices
 
     page_2 = Nokogiri::HTML(RestClient.get("https://coinmarketcap.com/all/views/all/"))
